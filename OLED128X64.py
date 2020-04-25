@@ -83,8 +83,13 @@ class OLED:
         #     self.timer_thread = threading.Thread(target=self.display_timeout)
         #     self.timer_thread.start()
 
+    def no_display(self,func):
+        # decorator to modify display_text function because display is temporarily broken.
+        def wrapper():
+            pass
+        return wrapper
 
-
+    @no_display
     def clear_display(self):
         '''
         clears the display - - for OLED this means displaying black box, no pixels lit
@@ -101,6 +106,7 @@ class OLED:
         # Draw a black filled box to clear the image.
         draw.rectangle((0, 0, self.width, self.height), outline=0, fill=0)
 
+    @no_display
     def display_text(self, line1, line2 = "", line3="", showing_info = True, sleep=0):
         """
         Displays two strings.  If display is set up to show 3 number_of_lines, the first string is split over the first two
@@ -151,9 +157,6 @@ class OLED:
 
         except Exception as e:
             print("Error writing to OLED display: ", e)
-
-
-
 
 
 
