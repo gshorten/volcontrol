@@ -83,7 +83,7 @@ class OLED:
         #     self.timer_thread = threading.Thread(target=self.display_timeout)
         #     self.timer_thread.start()
 
-    def no_display(self,func):
+    def no_display(func):
         # decorator to modify display_text function because display is temporarily broken.
         def wrapper():
             pass
