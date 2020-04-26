@@ -87,8 +87,7 @@ class OLED:
         # decorator to modify display_text function because display is temporarily broken.
         def wrapper():
             print('no display decorator instead of display')
-            pass
-        # return wrapper
+        return wrapper
 
     @no_display
     def clear_display(self):
