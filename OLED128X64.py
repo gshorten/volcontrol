@@ -169,6 +169,8 @@ class NoDisplay:
         self.lines = lines
         self.width = 128
         self.height = 64
+        self.is_busy = False
+        self.timed_out = False
 
     def display_text(self, line1, line2 = "", line3="", showing_info = True, sleep=0):
         print("no display, displaying nothing :-(")
