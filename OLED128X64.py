@@ -161,3 +161,19 @@ class OLED:
 
 
 
+class NoDisplay:
+
+    def __init__(self,weather_updater, showing_weather = True, pixels_wide=128, pixels_high=32,
+                 font_size=14, lines=3, char_width = 26):
+        self.font_size = font_size
+        self.lines = lines
+        self.width = self.disp.width
+        self.height = self.disp.height
+
+    def display_text(self, line1, line2 = "", line3="", showing_info = True, sleep=0):
+        print("no display, displaying nothing :-(")
+        return
+
+    def clear_display(self):
+        print("no display, not clearing")
+        return
