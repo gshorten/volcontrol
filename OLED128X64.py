@@ -167,8 +167,8 @@ class NoDisplay:
                  font_size=14, lines=3, char_width = 26):
         self.font_size = font_size
         self.lines = lines
-        self.width = self.disp.width
-        self.height = self.disp.height
+        self.width = 128
+        self.height = 64
 
     def display_text(self, line1, line2 = "", line3="", showing_info = True, sleep=0):
         print("no display, displaying nothing :-(")
