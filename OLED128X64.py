@@ -151,6 +151,7 @@ class OLED:
 
         except Exception as e:
             print("Error writing to OLED display: ", e)
+            self.is_busy = False
 
 
 
