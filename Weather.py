@@ -34,7 +34,7 @@ class UpdateWeather:
 
         self.location_id = location_id
         self.auth_key_current = auth_key_current
-        self.aut_key_current = auth_key_forecast
+        self.aut_key_forecast = auth_key_forecast
         self.disp_lines = disp_lines
         self.disp_width = disp_width
         self.fcst_period = fcst_period
