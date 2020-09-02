@@ -12,7 +12,8 @@ import math
 
 class UpdateWeather:
 
-    def __init__(self, location_id = "5913490", auth_key = "1b2c8e00bfa16ce7a48f76c3570fd3a2",
+    def __init__(self, location_id = "5913490", auth_key_current = "1b2c8e00bfa16ce7a48f76c3570fd3a2",
+                 auth_key_forecast = "3b90cad26425a346141a426741656660",
                  disp_lines=3, disp_width=22, fcst_period = 1, update_freq = 10, time_zone = "Canada/Mountain"):
         '''
         Gets weather update from openweathermap.org, methods for converting temperature to c and getting forecast
@@ -68,9 +69,9 @@ class UpdateWeather:
 
             # make urls to get weather data. go to openweathermap.org for details
             current_url = "http://api.openweathermap.org/data/2.5/weather?id=" + \
-                          self.location_id + "&appid=" + self.auth_key
+                          self.location_id + "&appid=" + self.auth_key_current
             forecast_url = "http://api.openweathermap.org/data/2.5/forecast?id=" +\
-                           self.location_id + "&appid=" + self.auth_key
+                           self.location_id + "&appid=" + self.auth_key_forecast
 
             # get current weather data, json format
             current_json = requests.get(current_url).json()
