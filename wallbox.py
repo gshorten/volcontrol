@@ -22,38 +22,58 @@ import SonosHarmony
 # weather updater
 WeatherUpdater = Weather.UpdateWeather(update_freq=10)
 # LCD on the wallbox
-WallboxLCD = OLED128X64.OLED(WeatherUpdater, showing_weather=False, char_width=24, pixels_high=64)
+WallboxLCD = OLED128X64.OLED(
+    WeatherUpdater, showing_weather=False, char_width=24, pixels_high=64
+)
 # Sonos units
-Units = SonosControl.SonosUnits(display=WallboxLCD, default_name='Kitchen')
-#on start up trigger rfid read of loaded page manually
+Units = SonosControl.SonosUnits(display=WallboxLCD, default_name="Kitchen")
+# on start up trigger rfid read of loaded page manually
 # Wallbox sonos player
 SeeburgWallboxPlayer = SonosControl.WallboxPlayer(units=Units, display=WallboxLCD)
 # The Seeburg wallbox
 SeeburgWallbox = SonosHW.WallBox(pin=9, callback=SeeburgWallboxPlayer.play_selection)
 # Playstate change LED
-WallboxPlaystateLED = SonosControl.PlaystateLED(Units, green=6, blue=13, red=5, on="low")
+WallboxPlaystateLED = SonosControl.PlaystateLED(
+    Units, green=6, blue=13, red=5, on="low"
+)
 # Display updater
-Updater = SonosControl.SonosDisplayUpdater(Units, WallboxLCD, WallboxPlaystateLED, WeatherUpdater)
+Updater = SonosControl.SonosDisplayUpdater(
+    Units, WallboxLCD, WallboxPlaystateLED, WeatherUpdater
+)
 # Onkyo receiver on the Logitech Harmony hub, use this to change volume when volume control is not being used for Sonos
 HarmonyTV = SonosHarmony.HarmonyHubDevice()
 # Volume Control
-WallboxRotaryControl = SonosControl.SonosVolCtrl(units=Units, updater=Updater, display=WallboxLCD,
-                                                 vol_ctrl_led=WallboxPlaystateLED, weather=WeatherUpdater, tv=HarmonyTV,
-                                                 up_increment=4, down_increment=5)
+WallboxRotaryControl = SonosControl.SonosVolCtrl(
+    units=Units,
+    updater=Updater,
+    display=WallboxLCD,
+    vol_ctrl_led=WallboxPlaystateLED,
+    weather=WeatherUpdater,
+    tv=HarmonyTV,
+    up_increment=4,
+    down_increment=5,
+)
 # Rotary Encoder (for the volume control)
-VolumeKnob = SonosHW.RotaryEncoder(pinA=11, pinB=7, rotary_callback=WallboxRotaryControl.change_volume)
+VolumeKnob = SonosHW.RotaryEncoder(
+    pinA=11, pinB=7, rotary_callback=WallboxRotaryControl.change_volume
+)
 # button on the volume control
-PausePlayButton = SonosHW.TimedButtonPress(pin=12, callback=WallboxRotaryControl.pause_play_skip, long_press_sec=1)
+PausePlayButton = SonosHW.TimedButtonPress(
+    pin=12, callback=WallboxRotaryControl.pause_play_skip, long_press_sec=1
+)
 # Button that manually selects wallbox pages
-SelectPageSetButton = SonosHW.ButtonPress(pin = 18,callback = SeeburgWallboxPlayer.select_wallbox_pageset)
+SelectPageSetButton = SonosHW.ButtonPress(
+    pin=18, callback=SeeburgWallboxPlayer.select_wallbox_pageset
+)
 # display time out loop
-OLEDTimeOut = SonosControl.DisplayTimeOut(WallboxLCD,Updater,timeout=5)
+OLEDTimeOut = SonosControl.DisplayTimeOut(WallboxLCD, Updater, timeout=5)
 # RFID reader that gets the page tag number and switches the wallbox page set
-PageReader = SonosHW.RFIDReader(callback = SeeburgWallboxPlayer.get_wallbox_tracks, port = "/dev/ttyUSB0")
+PageReader = SonosHW.RFIDReader(
+    callback=SeeburgWallboxPlayer.get_wallbox_tracks, port="/dev/ttyUSB0"
+)
 
 # Something to show on the screen when vol control box starts up
-print('active unit: :', Units.active_unit_name)
+print("active unit: :", Units.active_unit_name)
 
 # get list of sonos units, print list
 Units.get_units()
-
